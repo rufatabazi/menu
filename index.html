@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="sq" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Bistro & Cafe - Menu Dixhitale</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        amber: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar hiding for smooth tab sliding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 transition-colors duration-300 min-h-screen pb-24">
+
+    <!-- Container designed like a phone screen container for desktop preview, full width on mobile -->
+    <div class="max-w-md mx-auto min-h-screen relative shadow-2xl bg-white dark:bg-gray-900 border-x border-gray-200 dark:border-gray-800">
+        
+        <!-- Header -->
+        <header class="sticky top-0 z-40 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-4 py-3 transition-colors">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-amber-500/30">
+                        <i class="fa-solid font-utensils">🍽️</i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight">Gourmet Bistro</h1>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-green-500 inline-block"></span> Tavolina #4 • Hapur
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dark Mode Toggle & QR Info Button -->
+                <div class="flex items-center gap-2">
+                    <button id="themeToggle" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 flex items-center justify-center transition hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="mt-3 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input type="text" id="searchInput" placeholder="Kërko ushqimin ose pijen..." 
+                    class="w-full pl-9 pr-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800 dark:text-gray-100 placeholder-gray-400 transition">
+            </div>
+
+            <!-- Categories Slider -->
+            <div class="mt-3 flex gap-2 overflow-x-auto no-scrollbar pb-1">
+                <button onclick="filterCategory('të gjitha')" class="category-btn active border px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-500/20">
+                    Të Gjitha
+                </button>
+                <button onclick="filterCategory('kryesore')" class="category-btn border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    🍔 Kryesore
+                </button>
+                <button onclick="filterCategory('sanduiçë')" class="category-btn border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    🥪 Sanduiçë
+                </button>
+                <button onclick="filterCategory('pije')" class="category-btn border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    🍹 Pije
+                </button>
+                <button onclick="filterCategory('kafene')" class="category-btn border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    ☕ Kafene
+                </button>
+                <button onclick="filterCategory('deserte')" class="category-btn border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    🍰 Deserte
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content (Menu Items) -->
+        <main class="p-4 space-y-4" id="menuContainer">
+            <!-- Items injected by JS -->
+        </main>
+
+        <!-- Floating Bottom Bar (Simulating QR scan action or Call Waiter feature) -->
+        <div class="fixed bottom-3 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-sm z-40 bg-gray-900/90 dark:bg-gray-800/90 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-xl border border-gray-700/50 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                    <i class="fa-solid fa-qrcode"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-gray-300">Skanuar me QR</p>
+                    <p class="text-xs font-bold text-white">Menu Dixhitale Live</p>
+                </div>
+            </div>
+            <button onclick="thirrKamarierin()" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs px-3.5 py-2 rounded-xl transition shadow-md shadow-amber-500/30 flex items-center gap-1.5">
+                <i class="fa-solid fa-bell"></i> Thirr Kamarierin
+            </button>
+        </div>
+
+        <!-- Toast Notification Box -->
+        <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
+            <i class="fa-solid fa-circle-check"></i> <span id="toastMessage">Njoftimi u dërgua!</span>
+        </div>
+
+    </div>
+
+    <script>
+        // Sample Menu Data
+        const menuItems = [
+            {
+                id: 1,
+                name: "Burger Klasik Gourmet",
+                category: "kryesore",
+                price: "6.50 €",
+                description: "Mish viçi premium 200g, djathë cheddar, marule të freskëta, domate dhe salcë shtëpie.",
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop&q=80",
+                recommended: true
+            },
+            {
+                id: 2,
+                name: "Sanduiç me Pulë & Avokado",
+                category: "sanduiçë",
+                price: "4.50 €",
+                description: "Fileto pule e pjekur në zgjedhë, avokado, salcë majonezë me barishte, bukë artizanale.",
+                image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&auto=format&fit=crop&q=80",
+                recommended: false
+            },
+            {
+                id: 3,
+                name: "Limonadë Bio me Mente",
+                category: "pije",
+                price: "2.50 €",
+                description: "Limon i shtrydhur freskët, gjethe mente bio, ujë me gaz dhe pak mjaltë.",
+                image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&auto=format&fit=crop&q=80",
+                recommended: true
+            },
+            {
+                id: 4,
+                name: "Espresso Italian",
+                category: "kafene",
+                price: "1.20 €",
+                description: "Kafé e përzgjedhur nga plantacionet më të mira të Amerikës Latine.",
+                image: "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400&auto=format&fit=crop&q=80",
+                recommended: false
+            },
+            {
+                id: 5,
+                name: "Cheesecake me Fruta Pylli",
+                category: "deserte",
+                price: "3.50 €",
+                description: "Krem djathi i butë, bazë biskote krokante dhe salcë me fruta pylli të freskëta.",
+                image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&auto=format&fit=crop&q=80",
+                recommended: true
+            },
+            {
+                id: 6,
+                name: "Pica Margherita Artizanale",
+                category: "kryesore",
+                price: "5.80 €",
+                description: "Salcë domatesh San Marzano, mocarela e freskët, borzilok dhe vaj ulliri.",
+                image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400&auto=format&fit=crop&q=80",
+                recommended: false
+            },
+            {
+                id: 7,
+                name: "Cappuccino me Shkumë Qumështi",
+                category: "kafene",
+                price: "1.70 €",
+                description: "Espresso e dyfishtë me qumësht të rrahur me avull dhe pluhur me kakao.",
+                image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&auto=format&fit=crop&q=80",
+                recommended: false
+            }
+        ];
+
+        let currentCategory = 'të gjitha';
+        let searchQuery = '';
+
+        // Render Menu Items
+        function renderMenu() {
+            const container = document.getElementById('menuContainer');
+            container.innerHTML = '';
+
+            const filteredItems = menuItems.filter(item => {
+                const matchesCategory = currentCategory === 'të gjitha' || item.category === currentCategory;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      item.description.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filteredItems.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fa-solid fa-utensils text-4xl text-gray-300 dark:text-gray-700 mb-3"></i>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Nuk u gjet asnjë produkt për këtë kërkim.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "flex gap-3 bg-white dark:bg-gray-800/60 p-3 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition duration-200";
+                
+                card.innerHTML = `
+                    <div class="relative w-24 h-24 rounded-xl overflow-hidden shrink-0 bg-gray-100 dark:bg-gray-700">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                        ${item.recommended ? `
+                            <span class="absolute top-1 left-1 bg-amber-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-md shadow">
+                                ★ Popullore
+                            </span>
+                        ` : ''}
+                    </div>
+                    <div class="flex flex-col justify-between grow">
+                        <div>
+                            <div class="flex items-start justify-between gap-1">
+                                <h3 class="font-bold text-sm text-gray-900 dark:text-gray-100 leading-snug">${item.name}</h3>
+                                <span class="font-bold text-amber-500 dark:text-amber-400 text-sm whitespace-nowrap">${item.price}</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2 leading-relaxed">
+                                ${item.description}
+                            </p>
+                        </div>
+                        <div class="mt-2 flex justify-end">
+                            <button onclick="showToast('U shto te preferuarat!')" class="text-xs text-gray-400 hover:text-amber-500 transition">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filter Functionality
+        function filterCategory(cat) {
+            currentCategory = cat;
+            
+            // Update UI for buttons
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(cat) || (cat === 'të gjitha' && btn.textContent.trim() === 'Të Gjitha')) {
+                    btn.className = "category-btn border px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-500/20";
+                } else {
+                    btn.className = "category-btn border border-gray-200 dark:border-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800";
+                }
+            });
+
+            renderMenu();
+        }
+
+        // Search Listener
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderMenu();
+        });
+
+        // Dark/Light Theme Toggle
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            themeIcon.className = isDark ? 'fa-solid fa-sun text-amber-400 text-sm' : 'fa-solid fa-moon text-sm';
+        });
+
+        // Toast Message Simulation
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        function thirrKamarierin() {
+            showToast("Kamarieri u njoftua për Tavolinën #4!");
+        }
+
+        // Initial render
+        renderMenu();
+    </script>
+</body>
+</html>
