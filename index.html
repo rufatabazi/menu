@@ -34,7 +34,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            padding-bottom: 80px;
+            padding-bottom: 40px;
         }
 
         header {
@@ -45,17 +45,13 @@
             position: sticky;
             top: 0;
             z-index: 100;
-        }
-
-        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--primary-color);
         }
 
@@ -63,22 +59,10 @@
             background: none;
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .search-bar {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 25px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-size: 0.95rem;
-            outline: none;
-            margin-top: 10px;
+            font-size: 0.85rem;
         }
 
         .categories {
@@ -157,7 +141,6 @@
         .item-desc {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
         }
 
         .item-price {
@@ -165,63 +148,13 @@
             font-weight: 700;
             color: var(--primary-color);
         }
-
-        .order-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .order-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Toast notification */
-        .toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 12px;
-            position: fixed;
-            z-index: 1000;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 0.9rem;
-        }
-
-        .toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 30px; opacity: 1;}
-        }
-
-        @keyframes fadeout {
-            from {bottom: 30px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-top">
-            <h1>Restorant & Bar Shembull</h1>
-            <button class="theme-toggle" onclick="toggleTheme()">🌙 Mënyra e Errët</button>
-        </div>
-        <input type="text" class="search-bar" id="searchInput" placeholder="Kërko ushqim ose pije..." onkeyup="searchMenu()">
+        <h1>Restorant & Bar Shembull</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 Mënyra e Errët</button>
     </header>
 
     <div class="categories">
@@ -236,69 +169,61 @@
         <!-- Kategoria Pije -->
         <div class="category-section" data-category="pije">
             <h2 class="category-title">Pije të Freskëta</h2>
-            <div class="menu-item" data-name="limonadë shtëpie">
+            <div class="menu-item">
                 <div class="item-info">
                     <div class="item-name">Limonadë Shtëpie</div>
                     <div class="item-desc">Me mente të freskëta dhe akull</div>
-                    <div class="item-price">2.50 €</div>
                 </div>
-                <button class="order-btn" onclick="orderItem('Limonadë Shtëpie')">Kërko</button>
+                <div class="item-price">2.50 €</div>
             </div>
-            <div class="menu-item" data-name="ice tea pjeshkë">
+            <div class="menu-item">
                 <div class="item-info">
                     <div class="item-name">Ice Tea Pjeshkë</div>
                     <div class="item-desc">Pije e ftohtë me shije pjeshke</div>
-                    <div class="item-price">2.00 €</div>
                 </div>
-                <button class="order-btn" onclick="orderItem('Ice Tea Pjeshkë')">Kërko</button>
+                <div class="item-price">2.00 €</div>
             </div>
         </div>
 
         <!-- Kategoria Kafe & Çaj -->
         <div class="category-section" data-category="kafe">
             <h2 class="category-title">Kafe & Çajra</h2>
-            <div class="menu-item" data-name="espresso">
+            <div class="menu-item">
                 <div class="item-info">
                     <div class="item-name">Espresso</div>
                     <div class="item-desc">Kafe italiane e zgjedhur</div>
-                    <div class="item-price">1.00 €</div>
                 </div>
-                <button class="order-btn" onclick="orderItem('Espresso')">Kërko</button>
+                <div class="item-price">1.00 €</div>
             </div>
-            <div class="menu-item" data-name="cappuccino">
+            <div class="menu-item">
                 <div class="item-info">
                     <div class="item-name">Cappuccino</div>
                     <div class="item-desc">Me qumësht të kadifenjtë dhe shkumë</div>
-                    <div class="item-price">1.50 €</div>
                 </div>
-                <button class="order-btn" onclick="orderItem('Cappuccino')">Kërko</button>
+                <div class="item-price">1.50 €</div>
             </div>
         </div>
 
         <!-- Kategoria Ushqim -->
         <div class="category-section" data-category="ushqim">
             <h2 class="category-title">Ushqim & Sanduiçë</h2>
-            <div class="menu-item" data-name="sanduiç me pulë & avokado">
+            <div class="menu-item">
                 <div class="item-info">
                     <div class="item-name">Sanduiç me Pulë & Avokado</div>
                     <div class="item-desc">Bukë e thekur, fileto pule, avokado, salcë speciale</div>
-                    <div class="item-price">4.50 €</div>
                 </div>
-                <button class="order-btn" onclick="orderItem('Sanduiç me Pulë & Avokado')">Kërko</button>
+                <div class="item-price">4.50 €</div>
             </div>
-            <div class="menu-item" data-name="toast klasik">
+            <div class="menu-item">
                 <div class="item-info">
                     <div class="item-name">Toast Klasik</div>
                     <div class="item-desc">Me djathë gouda dhe proshutë zgjedhjeje</div>
-                    <div class="item-price">2.00 €</div>
                 </div>
-                <button class="order-btn" onclick="orderItem('Toast Klasik')">Kërko</button>
+                <div class="item-price">2.00 €</div>
             </div>
         </div>
 
     </div>
-
-    <div id="toast" class="toast">Artikulli u shtua në kërkesë!</div>
 
     <script>
         // Ndërrimi i temës (Dark/Light mode)
@@ -312,24 +237,8 @@
             }
         }
 
-        // Funksioni i kërkimit (Search bar)
-        function searchMenu() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let items = document.querySelectorAll('.menu-item');
-
-            items.forEach(item => {
-                let name = item.getAttribute('data-name');
-                if (name.includes(input)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
         // Filtrues sipas kategorive
         function filterCategory(category, btnElement) {
-            // Ndrysho butonin aktiv
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
 
@@ -341,14 +250,6 @@
                     section.style.display = 'none';
                 }
             });
-        }
-
-        // Mesazhi kur klikohet butoni "Kërko" (për artikullin)
-        function orderItem(itemName) {
-            let toast = document.getElementById('toast');
-            toast.textContent = `Kërkuat: "${itemName}". Sqarim: Kjo është vetëm një demo për uebfaqe!`;
-            toast.className = "toast show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
         }
     </script>
 </body>
