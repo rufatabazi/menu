@@ -1,256 +1,590 @@
+
 <!DOCTYPE html>
 <html lang="sq">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menuja Dixhitale - Restoranti</title>
-    <style>
-        :root {
-            --primary-color: #ff4757;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #2f3542;
-            --text-secondary: #747d8c;
-            --border-color: #dfe4ea;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BellaVista - Menu Restoranti</title>
 
-        .dark-mode {
-            --primary-color: #ff6b81;
-            --bg-color: #1e1e1e;
-            --card-bg: #2d2d2d;
-            --text-color: #f1f2f6;
-            --text-secondary: #a4b0be;
-            --border-color: #3d3d3d;
-        }
+<style>
+:root {
+  --bg: #080d12;
+  --panel: #101820;
+  --gold: #ffb21c;
+  --text: #f6f7f8;
+  --muted: #b9c1ca;
+  --line: #29333d;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
+* {
+  box-sizing: border-box;
+}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding-bottom: 40px;
-        }
+html {
+  scroll-behavior: smooth;
+}
 
-        header {
-            background-color: var(--card-bg);
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
 
-        h1 {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-        }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #080d12ee;
+  border-bottom: 1px solid var(--line);
+}
 
-        .theme-toggle {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
+.nav {
+  max-width: 1180px;
+  margin: auto;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-        .categories {
-            display: flex;
-            gap: 10px;
-            padding: 15px 20px;
-            overflow-x: auto;
-            background-color: var(--card-bg);
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            white-space: nowrap;
-        }
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
 
-        .categories::-webkit-scrollbar {
-            display: none;
-        }
+.logo span,
+.hero h1 span {
+  color: var(--gold);
+}
 
-        .cat-btn {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+.logo small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--muted);
+  margin-top: 3px;
+}
 
-        .cat-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
+nav {
+  display: flex;
+  gap: 24px;
+}
 
-        .menu-container {
-            padding: 0 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+}
 
-        .category-section {
-            margin-bottom: 25px;
-        }
+nav a:hover {
+  color: var(--gold);
+}
 
-        .category-title {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 5px;
-        }
+.btn {
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: #111;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-        .menu-item {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            border: 1px solid var(--border-color);
-        }
+.hero {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, #080d12 0%, #080d12dd 40%, #080d1260 100%),
+    url("https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1800&q=85")
+    center / cover;
+}
 
-        .item-info {
-            flex: 1;
-            padding-right: 15px;
-        }
+.hero-inner {
+  width: min(1180px, 100%);
+  padding: 55px 22px;
+  margin: auto;
+}
 
-        .item-name {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
 
-        .item-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
+.hero h1 {
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.05;
+  max-width: 570px;
+}
 
-        .item-price {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-    </style>
+.hero p {
+  color: #d0d5da;
+  max-width: 490px;
+  line-height: 1.7;
+}
+
+main {
+  max-width: 1180px;
+  margin: auto;
+  padding: 32px 22px 44px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.category {
+  background: transparent;
+  border: 1px solid #69717a;
+  color: var(--text);
+  border-radius: 30px;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.category.active,
+.category:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #111;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.topline h2 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.search {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: white;
+  width: min(260px, 48%);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #111a22, #0c1218);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 155px;
+  object-fit: cover;
+}
+
+.info {
+  padding: 14px;
+}
+
+.info h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.info p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  min-height: 39px;
+  margin: 0 0 10px;
+}
+
+.price {
+  color: var(--gold);
+  font-weight: bold;
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 28px 22px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.foot {
+  max-width: 1180px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.foot strong {
+  color: var(--text);
+  font-size: 20px;
+}
+
+.foot strong span {
+  color: var(--gold);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  nav {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .nav {
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  nav a {
+    font-size: 12px;
+  }
+
+  .hero-inner {
+    padding: 38px 22px;
+  }
+
+  .grid {
+    gap: 12px;
+  }
+
+  .card img {
+    height: 125px;
+  }
+
+  .info {
+    padding: 11px;
+  }
+
+  .info h3 {
+    font-size: 15px;
+  }
+
+  .info p {
+    font-size: 12px;
+  }
+
+  .topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .category {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Restorant & Bar Shembull</h1>
-        <button class="theme-toggle" onclick="toggleTheme()">🌙 Mënyra e Errët</button>
-    </header>
+<header>
+  <div class="nav">
 
-    <div class="categories">
-        <button class="cat-btn active" onclick="filterCategory('all', this)">Të gjitha</button>
-        <button class="cat-btn" onclick="filterCategory('pije', this)">Pije</button>
-        <button class="cat-btn" onclick="filterCategory('kafe', this)">Kafe & Çaj</button>
-        <button class="cat-btn" onclick="filterCategory('ushqim', this)">Ushqim</button>
+    <div class="logo">
+      ♨ Bella<span>Vista</span>
+      <small>RESTAURANT</small>
     </div>
 
-    <div class="menu-container" id="menuContainer">
+    <nav>
+      <a href="#home">Kryefaqja</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">Rreth nesh</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
 
-        <!-- Kategoria Pije -->
-        <div class="category-section" data-category="pije">
-            <h2 class="category-title">Pije të Freskëta</h2>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">Limonadë Shtëpie</div>
-                    <div class="item-desc">Me mente të freskëta dhe akull</div>
-                </div>
-                <div class="item-price">2.50 €</div>
-            </div>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">Ice Tea Pjeshkë</div>
-                    <div class="item-desc">Pije e ftohtë me shije pjeshke</div>
-                </div>
-                <div class="item-price">2.00 €</div>
-            </div>
-        </div>
+  </div>
+</header>
 
-        <!-- Kategoria Kafe & Çaj -->
-        <div class="category-section" data-category="kafe">
-            <h2 class="category-title">Kafe & Çajra</h2>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">Espresso</div>
-                    <div class="item-desc">Kafe italiane e zgjedhur</div>
-                </div>
-                <div class="item-price">1.00 €</div>
-            </div>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">Cappuccino</div>
-                    <div class="item-desc">Me qumësht të kadifenjtë dhe shkumë</div>
-                </div>
-                <div class="item-price">1.50 €</div>
-            </div>
-        </div>
+<section class="hero" id="home">
+  <div class="hero-inner">
 
-        <!-- Kategoria Ushqim -->
-        <div class="category-section" data-category="ushqim">
-            <h2 class="category-title">Ushqim & Sanduiçë</h2>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">Sanduiç me Pulë & Avokado</div>
-                    <div class="item-desc">Bukë e thekur, fileto pule, avokado, salcë speciale</div>
-                </div>
-                <div class="item-price">4.50 €</div>
-            </div>
-            <div class="menu-item">
-                <div class="item-info">
-                    <div class="item-name">Toast Klasik</div>
-                    <div class="item-desc">Me djathë gouda dhe proshutë zgjedhjeje</div>
-                </div>
-                <div class="item-price">2.00 €</div>
-            </div>
-        </div>
+    <div class="eyebrow">MENU RESTORANTI</div>
 
+    <h1>
+      Shije që
+      <span>mbetet në mendje</span>
+    </h1>
+
+    <p>
+      Përjetoni një përvojë të veçantë kulinare
+      me receta të përgatitura me kujdes dhe
+      përbërës të freskët.
+    </p>
+
+    <button class="btn"
+      onclick="document.getElementById('menu').scrollIntoView()">
+      Shiko menunë ↓
+    </button>
+
+  </div>
+</section>
+
+<main id="menu">
+
+  <div class="categories" id="categories"></div>
+
+  <div class="topline">
+    <h2>Menuja jonë</h2>
+
+    <input
+      class="search"
+      id="search"
+      placeholder="🔎 Kërko ushqim..."
+      aria-label="Kërko ushqim">
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+</main>
+
+<section id="about"
+  style="max-width:1180px;margin:auto;padding:0 22px 38px;color:#b9c1ca;line-height:1.7">
+
+  <h2 style="color:#f6f7f8">
+    Mirë se vini në
+    <span style="color:#ffb21c">BellaVista</span>
+  </h2>
+
+  <p>
+    Shije të mira, përbërës cilësorë dhe mikpritje
+    që ju bën të ndiheni si në shtëpi.
+  </p>
+
+</section>
+
+<footer id="contact">
+
+  <div class="foot">
+
+    <div>
+      <strong>♨ Bella<span>Vista</span></strong>
+      <p>Një vakt, një përvojë e veçantë.</p>
     </div>
 
-    <script>
-        // Ndërrimi i temës (Dark/Light mode)
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const btn = document.querySelector('.theme-toggle');
-            if (document.body.classList.contains('dark-mode')) {
-                btn.textContent = '☀️ Mënyra e Ndritur';
-            } else {
-                btn.textContent = '🌙 Mënyra e Errët';
-            }
-        }
+    <div>
+      <b style="color:white">Na vizitoni</b>
+      <p>Rr. Shembull, Gostivar</p>
+      <p>+389 44 123 456</p>
+      <p>info@bellavista.mk</p>
+    </div>
 
-        // Filtrues sipas kategorive
-        function filterCategory(category, btnElement) {
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
+    <div>
+      <b style="color:white">Orari</b>
+      <p>Hënë – Diele: 09:00 – 23:00</p>
+      <p>© 2026 BellaVista Restaurant</p>
+    </div>
 
-            let sections = document.querySelectorAll('.category-section');
-            sections.forEach(section => {
-                if (category === 'all' || section.getAttribute('data-category') === category) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
-        }
-    </script>
+  </div>
+
+</footer>
+
+<script>
+const dishes = [
+
+  {
+    name: "Steak i viçit",
+    cat: "Pjata kryesore",
+    desc: "Steak i freskët me patate të skuqura dhe perime.",
+    price: 12.90,
+    img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Pizza Margherita",
+    cat: "Pica",
+    desc: "Domate, mozzarella, borzilok dhe vaj ulliri.",
+    price: 8.50,
+    img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Pasta Carbonara",
+    cat: "Pasta",
+    desc: "Pasta kremoze me proshutë dhe djathë parmixhano.",
+    price: 7.90,
+    img: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Sallatë Greke",
+    cat: "Sallata",
+    desc: "Domate, kastravec, ullinj dhe djathë feta.",
+    price: 6.50,
+    img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Fileto pule",
+    cat: "Pjata kryesore",
+    desc: "Fileto pule me perime të freskëta dhe oriz.",
+    price: 8.90,
+    img: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Burger klasik",
+    cat: "Burger",
+    desc: "Mish viçi, sallatë, domate, djathë dhe salcë speciale.",
+    price: 7.50,
+    img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Tortë me çokollatë",
+    cat: "Ëmbëlsira",
+    desc: "Tortë me çokollatë dhe krem.",
+    price: 4.90,
+    img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
+  },
+
+  {
+    name: "Mojito",
+    cat: "Pije",
+    desc: "Pije freskuese me mente, limon dhe akull.",
+    price: 3.50,
+    img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=700&q=80"
+  }
+
+];
+
+const cats = [
+  "Të gjitha",
+  ...new Set(dishes.map(d => d.cat))
+];
+
+let selected = "Të gjitha";
+
+const grid = document.getElementById("grid");
+const categories = document.getElementById("categories");
+
+// Krijon butonat e kategorive
+function renderCats() {
+
+  categories.innerHTML = cats.map(category => `
+    <button
+      class="category ${category === selected ? 'active' : ''}"
+      data-cat="${category}">
+      ${category}
+    </button>
+  `).join("");
+
+  categories.querySelectorAll("button").forEach(button => {
+
+    button.onclick = () => {
+      selected = button.dataset.cat;
+      renderCats();
+      renderDishes();
+    };
+
+  });
+}
+
+// Shfaq ushqimet sipas kategorisë dhe kërkimit
+function renderDishes() {
+
+  const q = document.getElementById("search")
+    .value.toLowerCase();
+
+  const filtered = dishes.filter(dish => {
+
+    const matchesCategory =
+      selected === "Të gjitha" || dish.cat === selected;
+
+    const matchesSearch =
+      (dish.name + " " + dish.desc + " " + dish.cat)
+        .toLowerCase()
+        .includes(q);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = "<p>Nuk u gjet asnjë ushqim.</p>";
+    return;
+  }
+
+  grid.innerHTML = filtered.map(dish => `
+
+    <article class="card">
+
+      <img
+        src="${dish.img}"
+        alt="${dish.name}"
+        loading="lazy">
+
+      <div class="info">
+
+        <h3>${dish.name}</h3>
+
+        <p>${dish.desc}</p>
+
+        <div class="price">
+          ${dish.price.toFixed(2)} €
+        </div>
+
+      </div>
+
+    </article>
+
+  `).join("");
+}
+
+// Kërkimi për ushqime
+document.getElementById("search")
+  .addEventListener("input", renderDishes);
+
+// Shfaq menunë kur hapet faqja
+renderCats();
+renderDishes();
+</script>
+
 </body>
 </html>
